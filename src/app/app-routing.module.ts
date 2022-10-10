@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ArticleComponent } from './components/article/article.component';
 import { CreateComponent } from './components/article/create/create.component';
@@ -10,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ViewComponent } from './components/view/view.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo:"/home", pathMatch: 'full'},
