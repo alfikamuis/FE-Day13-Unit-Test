@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from './services/login.service';
+import { AuthService } from './shared/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent implements OnInit,OnChanges{
 
   title = 'crud-child-parent';
 
-  constructor(private loginService: LoginService, private router:Router) { }
+  constructor(private authService: AuthService, private router:Router) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     
@@ -26,12 +26,12 @@ export class AppComponent implements OnInit,OnChanges{
   }
 
   checkLogin(): void {
-    this.isLogin = this.loginService.isLoggedIn();
+    this.isLogin = this.authService.isLoggedIn;
     this.buttonLogout = true;
   }
 
   logout(){
-    this.loginService.logout();
+    this.authService.doLogout();
     this.router.navigateByUrl('/home');
     this.buttonLogout = false;
   }
