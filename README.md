@@ -1,6 +1,83 @@
 # FE-Day13-Unit-Test
 
-<details><summary><b>Code here <<</b></summary>
+<details><summary><b>Login test code here <<</b></summary>
+
+```sh
+it('should return registered object',
+    inject(
+      [HttpTestingController, AuthService],
+      (httpMock: HttpTestingController, authService: AuthService) => {
+      
+        authService.signUp(mockUsers).subscribe((event: HttpEvent<any>) => {
+          switch (event.type) {
+            case HttpEventType.Response:
+              expect(event.body).toEqual(mockUsers);
+          }
+        });
+
+        const mockReq = httpMock.expectOne(authService.endpoint + "/register-user");
+
+        expect(mockReq.cancelled).toBeFalsy();
+        expect(mockReq.request.responseType).toEqual('json');
+        mockReq.flush(mockUsers);
+
+        httpMock.verify();
+      }
+    )
+  );
+```
+
+```sh
+it('should return objects user by id',
+    inject(
+      [HttpTestingController, AuthService],
+      (httpMock: HttpTestingController, authService: AuthService) => {
+
+        authService.getUserProfile(1).subscribe((event: HttpEvent<any>) => {
+          switch (event.type) {
+            case HttpEventType.Response:
+              expect(event.body).toEqual(mockUsers);
+          }
+        });
+
+        const mockReq = httpMock.expectOne(authService.endpoint + "/user-profile/"+1);
+
+        expect(mockReq.cancelled).toBeFalsy();
+        expect(mockReq.request.responseType).toEqual('json');
+        mockReq.flush(mockUsers);
+
+        httpMock.verify();
+      }
+    )
+  );
+```
+
+```sh
+it('should return stored token from localStorage while login',
+    () => {
+      localStorage.setItem('access_token', 'hasdyqwuy12r3hg');
+      expect(service.getToken()).toEqual('hasdyqwuy12r3hg');
+    });
+```
+
+```sh
+it('should return true while user still login',
+    () => {
+      localStorage.setItem('access_token', 'hasdyqwuy12r3hg');
+      expect(service.isLoggedIn).toEqual(true);
+    });
+```
+
+```sh
+it('should return empty token from localStorage while logout',
+    () => {
+      localStorage.removeItem('access_token');
+      expect(service.doLogout()).toBeNull;
+    });
+```
+</details>
+
+<details><summary><b>Passanger code here <<</b></summary>
 
 ```sh
 it('should return equal value of 2 from listed array user',
@@ -57,4 +134,6 @@ it('should return empty array when deleted',
 ```
 </details>
 
-![image](https://user-images.githubusercontent.com/38674801/194540927-ff1ae5e3-560d-4d51-b48e-e5b6373faf0e.png)
+![image](https://user-images.githubusercontent.com/38674801/194896097-646ecd41-efca-49a5-b5b1-c415ab77ed0d.png)
+![image](https://user-images.githubusercontent.com/38674801/194895987-9b09d472-b5fe-4bef-90c2-a1063429f415.png)
+
